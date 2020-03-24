@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Models>
+	<DataTypes>
+		<DataType name="oPallet" description="Used to represent a pallet">
+			<Attribute name="iId" type="int" description="Pallet Id"/>
+			<Attribute name="tExpire" type="TIME" description="Expiration time of the pallet"/>			
+		</DataType>
+		<DataType name="oLoad" description="A collection of pallets that make a load.">
+			<Attribute name="iId" type="int" description="Load Id"/>
+			<Attribute name="tExpire" type="TIME" description="Expiration time of the load"/>
+			<Attribute name="tFlight" type="TIME" description="Length of flight"/>
+		</DataType>
+		<DataType name="oAircraftStatus" description="Status of each aircraft">
+			<Attribute name="iACId" type="int" description="Aircraft Id"/>
+			<Attribute name="bStatus" type="bool" description="Status of the aircraft"/>
+		</DataType>
+		<DataType name="oACLoad" description="Load for a specific aircraft">
+			<Attribute name="iACId" type="int" description="Aircraft Id"/>
+			<Attribute name="myLoad" type="oLoad" description="Load for the aircraft"/>
+		</DataType>
+	</DataTypes>
+	<Model name="StratAirlift" type="coupled" description="A system to simulate strategic airlift.">
+		<Inputs>
+		</Inputs>
+		<Outputs>
+			<Port name="SA_ExpiredPallets" type="oPallet" description="Pallets which expired during the simulation."/>
+			<Port name="SA_RecievedMessage" type="string" description="Message delivered to the receipient when the aircraft load is delivered."/>
+		</Outputs>
+		<Files>
+			<File name="StratAirlift.cpp" type="CPP" location="/models"/>
+			<File name="StratAirlift_output_messages.txt" type="LOG" location="/simulation_results"/>
+			<File name="StratAirlift_output_state.txt" type="LOG" location="/simulation_results"/>
+		</Files>
+	</Model>
+	<Model name="LoadingProcess" type="coupled" description="Collects pallets, creates loads and loads them on Aircraft">
+		<Inputs>
+			<Port name="LP_InputPallet" type="oPallet" description="Recieves pallets"/>
+		</Inputs>
+		<Outputs>
+			<Port name="LP_ExpiredPallets" type="oPallet" description="Expired pallets prior to delivery"/>
+			<Port name="LP_ACLoad" type="oACLoad" description="Aircraft load for a destination"/>
+		</Outputs>
+		<Files>
+			<File name="LoadingProcess_Test.cpp" type="CPP" location="/test"/>
+			<File name="LoadingProcessTest_Pallets.txt" type="TXT" location="/input_data"/>
+			<File name="LoadingProcess_output_messages.txt" type="LOG" location="/simulation_results"/>
+			<File name="LoadingProcess_output_state.txt" type="LOG" location="/simulation_results"/>
+		</Files>
+	</Model>
+	<Model name="PalletGenerator" type="atomic" description="Generates pallets for the simulation">
+		<Inputs>
+		</Inputs>
+		<Outputs>
+			<Port name="outPallet" type="oPallet" description="Pallet that was generated"/>
+		</Outputs>
+		<Files>
+			<File name="PalletGenerator.hpp" type="HPP" location="/atomics" />
+			<File name="PalletGen_Test.cpp" type="CPP" location="/test" />
+			<File name="PalletGen_Test_output_messages.txt" type="LOG" location="/simulation_results"/>
+			<File name="PalletGen_Test_output_state.txt" type="LOG" location="/simulation_results"/>
+		</Files>
+	</Model>
+	<Model name="LoadPacking" type="atomic" description="Accumulates pallets and generates loads for aircraft">
+		<Inputs>
+			<Port name="inPallet" type="oPallet" description="Recieved pallets for load creation"/>
+			<Port name="inACStatus" type="oAircraftStatus" description="Current aircraft status"/>
+		</Inputs>
+		<Outputs>
+			<Port name="outLoad" type="oLoad" description="Load for an aircraft"/>
+			<Port name="outExpired" type="oPallet" description="Expired pallets"/>
+		</Outputs>
+		<Files>
+			<File name="LoadPacking.hpp" type="HPP" location="/atomics" />
+			<File name="LoadPacking_Test.cpp" type="CPP" location="/test" />
+			<File name="LoadPacking_Test_output_messages.txt" type="LOG" location="/simulation_results"/>
+			<File name="LoadPacking_Test_output_state.txt" type="LOG" location="/simulation_results"/>
+		</Files>
+	</Model>
+	<Model name="AircraftLoader" type="atomic" description="Takes loads and assigns them to an aircraft">
+		<Inputs>
+			<Port name="inLoad" type="oLoad" description="The next load to put on an aircraft"/>
+			<Port name="inACStatus" type="oAircraftStatus" description="Current aircraft status"/>
+		</Inputs>
+		<Outputs>
+			<Port name="outLoad" type="oACLoad" description="Load for a given aircraft"/>
+		</Outputs>
+		<Files>
+			<File name="AircraftLoader.hpp" type="HPP" location="/atomics" />
+			<File name="AircraftLoader_Test.cpp" type="CPP" location="/test" />
+			<File name="AircraftLoader_Test_output_messages.txt" type="LOG" location="/simulation_results"/>
+			<File name="AircraftLoader_Test_output_state.txt" type="LOG" location="/simulation_results"/>
+		</Files>
+	</Model>
+	<Model name="Aircraft" type="atomic" description="An aircraft to transport loads">
+		<Inputs>
+			<Port name="inLoad" type="oACLoad" description="The load for this aircraft"/>
+		</Inputs>
+		<Outputs>
+			<Port name="outACStatus" type="oAircraftStatus" description="Status of the aircraft"/>
+			<Port name="outLoad" type="oACLoad" description="Unloading the load"/>
+		</Outputs>
+		<Files>
+			<File name="Aircraft.hpp" type="HPP" location="/atomics" />
+			<File name="Aircraft_Test.cpp" type="CPP" location="/test" />
+			<File name="Aircraft_Test_output_messages.txt" type="LOG" location="/simulation_results"/>
+			<File name="Aircraft_Test_output_state.txt" type="LOG" location="/simulation_results"/>
+		</Files>
+	</Model>
+	<Model name="Destination" type="atomic" description="Destination for the aircraft load">
+		<Inputs>
+			<Port name="inLoad" type="oACLoad" description="Load for this destination"/>
+		</Inputs>
+		<Outputs>
+			<Port name="outRecieved" type="string" description="A recieved load message for the receipient"/>
+		</Outputs>
+		<Files>
+			<File name="Destination.hpp" type="HPP" location="/atomics" />
+			<File name="Destination_Test.cpp" type="CPP" location="/test" />
+			<File name="Destination_Test_output_messages.txt" type="LOG" location="/simulation_results"/>
+			<File name="Destination_Test_output_state.txt" type="LOG" location="/simulation_results"/>
+		</Files>
+	</Model>
+</Models>

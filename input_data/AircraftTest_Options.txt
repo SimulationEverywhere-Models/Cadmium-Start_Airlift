@@ -1,0 +1,3 @@
+LOG_DIR=./simulation_results/
+INPUT_DIR=./input_data/
+SCENARIO_STOP=14400

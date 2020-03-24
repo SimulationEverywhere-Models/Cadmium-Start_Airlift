@@ -1,0 +1,70 @@
+0/1
+State for model input_reader_getload is next time: 0/1
+State for model input_reader_acstatus is next time: 0/1
+State for model myAircraftLoad is Aircraft Loader - Waiting
+
+0/1
+State for model input_reader_getload is next time: 10/1
+State for model input_reader_acstatus is next time: 15/1
+State for model myAircraftLoad is Aircraft Loader - Waiting
+
+10/1
+State for model input_reader_getload is next time: 10/1
+State for model input_reader_acstatus is next time: 15/1
+State for model myAircraftLoad is Aircraft Loader - Busy: 1 Flight Time: 5 Hours
+
+10/1
+State for model input_reader_getload is next time: 10/1
+State for model input_reader_acstatus is next time: 15/1
+State for model myAircraftLoad is Aircraft Loader - Waiting
+
+15/1
+State for model input_reader_getload is next time: 10/1
+State for model input_reader_acstatus is next time: 10/1
+State for model myAircraftLoad is Aircraft Loader - Waiting
+
+20/1
+State for model input_reader_getload is next time: 10/1
+State for model input_reader_acstatus is next time: 10/1
+State for model myAircraftLoad is Aircraft Loader - Busy: 2 Flight Time: 5 Hours
+
+20/1
+State for model input_reader_getload is next time: 10/1
+State for model input_reader_acstatus is next time: 10/1
+State for model myAircraftLoad is Aircraft Loader - Waiting
+
+25/1
+State for model input_reader_getload is next time: 10/1
+State for model input_reader_acstatus is next time: 25/1
+State for model myAircraftLoad is Aircraft Loader - Waiting
+
+30/1
+State for model input_reader_getload is next time: 10/1
+State for model input_reader_acstatus is next time: 25/1
+State for model myAircraftLoad is Aircraft Loader - Waiting
+
+40/1
+State for model input_reader_getload is next time: 10/1
+State for model input_reader_acstatus is next time: 25/1
+State for model myAircraftLoad is Aircraft Loader - Waiting
+
+50/1
+State for model input_reader_getload is next time: 10/1
+State for model input_reader_acstatus is next time: 5/1
+State for model myAircraftLoad is Aircraft Loader - Busy: 1 Flight Time: 5 Hours
+
+50/1
+State for model input_reader_getload is next time: 10/1
+State for model input_reader_acstatus is next time: 5/1
+State for model myAircraftLoad is Aircraft Loader - Waiting
+
+55/1
+State for model input_reader_getload is next time: 10/1
+State for model input_reader_acstatus is next time: inf
+State for model myAircraftLoad is Aircraft Loader - Waiting
+
+60/1
+State for model input_reader_getload is next time: inf
+State for model input_reader_acstatus is next time: inf
+State for model myAircraftLoad is Aircraft Loader - Waiting
+

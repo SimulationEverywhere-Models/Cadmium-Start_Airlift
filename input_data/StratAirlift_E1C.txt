@@ -1,0 +1,5 @@
+LOG_DIR=./simulation_results/
+INPUT_DIR=./input_data/
+SCENARIO_STOP=43200
+PALLET_GEN_MIN_NEW=9
+PALLET_GEN_MAX_NEW=13
